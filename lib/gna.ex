@@ -12,17 +12,17 @@ defmodule Gna do
 
       case options do
         {[help: true], _, _ }       -> :help
-        {_, ["check"], _}           -> [:check,     []]
-        {_, ["discover", path], _}  -> [:discover,  [path]]
+        {_, ["check"], _}           -> [Gna.Commands.Check, []]
+        {_, ["discover", path], _}  -> [Gna.Commands.Discover, [path]]
         {_, ["help"], _}            -> :help
-        {_, ["list"], _}            -> [:list,      []]
+        {_, ["list"], _}            -> [Gna.Commands.List, []]
         _                           -> :unknown
       end
     end
 
     defp run_command([command, arguments]) do
-      IO.puts "command:   #{inspect command}"
-      IO.puts "arguments: #{inspect arguments}"
+      IO.puts "command: #{inspect command}"
+      command.run arguments
     end
 
     defp run_command(:help) do
