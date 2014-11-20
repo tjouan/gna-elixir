@@ -6,7 +6,8 @@ defmodule Gna.Mixfile do
       app:      :gna,
       version:  "0.0.1",
       elixir:   "~> 1.0.2",
-      deps:     deps
+      deps:     deps,
+      escript:  escript
     ]
   end
 
@@ -16,5 +17,9 @@ defmodule Gna.Mixfile do
 
   defp deps do
     []
+  end
+
+  defp escript do
+    [main_module: Gna.CLI]
   end
 end
