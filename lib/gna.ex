@@ -1,5 +1,7 @@
 defmodule Gna do
   defmodule CLI do
+    @ex_usage 64
+
     def main(args) do
       args |> parse_arguments |> run_command
     end
@@ -37,6 +39,7 @@ Commands:
 
     defp run_command(:unknown) do
       run_command :help
+      System.halt(@ex_usage)
     end
   end
 end
