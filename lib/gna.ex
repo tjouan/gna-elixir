@@ -7,10 +7,7 @@ defmodule Gna do
     end
 
     defp parse_arguments(args) do
-      options = OptionParser
-        .parse(args, strict: [help: :boolean], aliases: [h: :help])
-
-      case options do
+      case OptionParser.parse(args, parse_options) do
         {[help: true], _, _ }       -> :help
         {_, ["check"], _}           -> [Gna.Commands.Check, []]
         {_, ["discover", path], _}  -> [Gna.Commands.Discover, [path]]
@@ -18,6 +15,10 @@ defmodule Gna do
         {_, ["list"], _}            -> [Gna.Commands.List, []]
         _                           -> :unknown
       end
+    end
+
+    defp parse_options do
+      [strict: [help: :boolean], aliases: [h: :help]]
     end
 
     defp run_command([command, arguments]) do
