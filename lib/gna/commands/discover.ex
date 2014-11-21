@@ -1,7 +1,6 @@
 defmodule Gna.Commands.Discover do
   def run([path]) do
-    repos = find_repos path
-    IO.inspect repos
+    Gna.RunControl.save_repos find_repos path
   end
 
   defp find_repos(path) do
