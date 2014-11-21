@@ -22,7 +22,6 @@ defmodule Gna do
     end
 
     defp run_command([command, arguments]) do
-      IO.puts "command: #{inspect command}"
       command.run arguments
     end
 
