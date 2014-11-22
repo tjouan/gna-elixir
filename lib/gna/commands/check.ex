@@ -8,16 +8,25 @@ defmodule Gna.Commands.Check do
   def run([]) do
     Enum.each Gna.RunControl.repos, fn(repo) ->
       IO.puts "*** #{repo} ***"
-      Enum.each @git_commands, fn(command) ->
-        case System.cmd @git, ["-C", repo] ++ command do
-          {output, 0}           -> report output
-          {output, exit_status} -> report output
-        end
+      Enum.each @git_commands, fn(git_command) ->
+        repo_git_exec(repo, git_command) |> report
       end
     end
   end
 
-  defp report(git_output) do
+  defp repo_git_exec(repo, arguments) do
+    case System.cmd @git, ["-C", repo] ++ arguments do
+      {output, 0} -> {:ok,    output}
+      {output, _} -> {:error, output}
+    end
+  end
+
+  defp report({:ok, git_output}) do
+    IO.write git_output
+  end
+
+  defp report({:error, git_output}) do
+    IO.puts "ERROR: cannot check repository"
     IO.write git_output
   end
 end
