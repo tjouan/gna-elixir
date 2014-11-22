@@ -5,8 +5,10 @@ defmodule Gna.Commands.Check do
     ~w(status --porcelain)
   ]
 
+  alias Gna.RunControl
+
   def run([]) do
-    Enum.each Gna.RunControl.repos, fn(repo) ->
+    Enum.each RunControl.repos, fn(repo) ->
       IO.puts "*** #{repo} ***"
       Enum.each @git_commands, fn(git_command) ->
         repo_git_exec(repo, git_command) |> report
