@@ -11,12 +11,12 @@ defmodule Gna.CLI do
 
   defp parse_arguments(args) do
     case OptionParser.parse(args, parse_options) do
-      {[help: true], _, _}       -> :help
-      {_, ["check"], _}           -> [Check, []]
-      {_, ["discover", path], _}  -> [Discover, [path]]
-      {_, ["help"], _}            -> :help
-      {_, ["list"], _}            -> [List, []]
-      _                           -> :unknown
+      {[help: true],  _,                  _}  -> :help
+      {_,             ["check"],          _}  -> [Check,    []]
+      {_,             ["discover", path], _}  -> [Discover, [path]]
+      {_,             ["help"],           _}  -> :help
+      {_,             ["list"],           _}  -> [List,     []]
+      _                                       -> :unknown
     end
   end
 
