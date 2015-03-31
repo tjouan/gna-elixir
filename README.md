@@ -21,6 +21,14 @@ Planned features
 * `list` subcommand, list all configured repositories.
 
 
+TODO
+----
+
+* Extract Haskell version (keep history)
+
+* Publish versions in other languages and document them
+
+
 Similar project
 ---------------
 
