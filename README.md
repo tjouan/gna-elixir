@@ -19,35 +19,3 @@ Planned features
   repositories and write a run control file.
 
 * `list` subcommand, list all configured repositories.
-
-
-TODO
-----
-
-* Extract Haskell version (keep history)
-
-* Publish versions in other languages and document them
-
-
-Similar project
----------------
-
-https://github.com/jwiegley/git-all (haskell)
-
-
-Materials
----------
-
-### Haskell doc
-
-* http://en.wikibooks.org/wiki/Haskell
-* http://learnyouahaskell.com/
-* http://book.realworldhaskell.org/read/index.html
-* http://stackoverflow.com/questions/3077866/large-scale-design-in-haskell
-* http://stackoverflow.com/questions/6609643/haskell-library-to-manipulate-a-git-repo (git)
-* https://github.com/wlangstroth/haskell-samples
-
-
-### Ruby code
-
-  For git: grit, rugged, minigit
