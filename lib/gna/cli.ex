@@ -5,12 +5,12 @@ defmodule Gna.CLI do
   alias Gna.Commands.Discover
   alias Gna.Commands.List
 
-  def main(args) do
+  def main args do
     args |> parse_arguments |> run_command
   end
 
-  defp parse_arguments(args) do
-    case OptionParser.parse(args, parse_options) do
+  defp parse_arguments args do
+    case OptionParser.parse args, parse_options do
       {[help: true],  _,                  _}  -> :help
       {_,             ["check"],          _}  -> [Check,    []]
       {_,             ["discover", path], _}  -> [Discover, [path]]
@@ -27,11 +27,11 @@ defmodule Gna.CLI do
     ]
   end
 
-  defp run_command([command, arguments]) do
+  defp run_command [command, arguments] do
     command.run arguments
   end
 
-  defp run_command(:help) do
+  defp run_command :help do
     IO.write """
       Usage: gna command [arguments]
 
@@ -43,8 +43,8 @@ defmodule Gna.CLI do
       """
   end
 
-  defp run_command(:unknown) do
+  defp run_command :unknown do
     run_command :help
-    System.halt(@ex_usage)
+    System.halt @ex_usage
   end
 end
