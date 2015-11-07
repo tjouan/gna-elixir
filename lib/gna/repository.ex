@@ -2,8 +2,8 @@ defmodule Gna.Repository do
   @git "git"
   @git_exec_options stderr_to_stdout: true
   @git_check_commands [
-    ~w(symbolic-ref --short HEAD),
-    ~w(status --porcelain)
+    ~w[symbolic-ref --short HEAD],
+    ~w[status --porcelain]
   ]
 
   def check repository do
