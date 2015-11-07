@@ -1,5 +1,9 @@
 defmodule Gna.CLI do
   @ex_usage 64
+  @parser_options [
+    strict:   [help: :boolean],
+    aliases:  [h: :help]
+  ]
 
   alias Gna.Commands.Check
   alias Gna.Commands.Discover
@@ -10,7 +14,7 @@ defmodule Gna.CLI do
   end
 
   defp parse_arguments args do
-    case OptionParser.parse args, parse_options do
+    case OptionParser.parse args, @parser_options do
       {[help: true],  _,                  _}  -> :help
       {_,             ["check"],          _}  -> [Check,    []]
       {_,             ["discover", path], _}  -> [Discover, [path]]
@@ -18,13 +22,6 @@ defmodule Gna.CLI do
       {_,             ["list"],           _}  -> [List,     []]
       _                                       -> :unknown
     end
-  end
-
-  defp parse_options do
-    [
-      strict:   [help: :boolean],
-      aliases:  [h: :help]
-    ]
   end
 
   defp run_command [command, arguments] do
