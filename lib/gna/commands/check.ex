@@ -10,5 +10,6 @@ defmodule Gna.Commands.Check do
   defp report {status, repository, output} do
     IO.puts "*** #{repository} ***"
     if status == :error, do: IO.puts "ERROR: cannot check repository"
+    IO.puts output
   end
 end
