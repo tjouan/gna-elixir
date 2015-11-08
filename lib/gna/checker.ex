@@ -1,7 +1,9 @@
 defmodule Gna.Checker do
   @git_commands [
-    {~w[symbolic-ref --short HEAD], {:match,  ~r/\Amaster\n\z/}},
-    {~w[status --porcelain],        {:match,  ~r/\A\z/}}
+    {~w[config --get remote.origin.url],  {:match,    ~r/\Agit:\w+/}},
+    {~w[symbolic-ref --short HEAD],       {:match,    ~r/\Amaster\n\z/}},
+    {~w[status --porcelain],              {:match,    ~r/\A\z/}},
+    {~w[branch -vv],                      {:filter,   ~r/\[origin\/[^:]+\]/}}
   ]
 
   alias Gna.Repository
@@ -20,6 +22,15 @@ defmodule Gna.Checker do
     case output =~ arg do
       true  -> {:ok, output}
       false -> {:ko, output}
+    end
+  end
+
+  defp verify output, {:filter, arg} do
+    Enum.reduce String.split(output, "\n", trim: true), {:ok, ""}, fn line, {as, ao} ->
+      case line =~ arg do
+        true  -> {merge_check_statuses(as, :ok), ao}
+        false -> {:ko, ao <> line <> "\n"}
+      end
     end
   end
 
