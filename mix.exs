@@ -5,20 +5,12 @@ defmodule Gna.Mixfile do
     [
       app:      :gna,
       version:  "0.0.1",
-      deps:     deps,
-      escript:  escript
+      deps:     [],
+      escript:  [main_module: Gna.CLI]
     ]
   end
 
   def application do
     [applications: []]
-  end
-
-  defp deps do
-    []
-  end
-
-  defp escript do
-    [main_module: Gna.CLI]
   end
 end
