@@ -1,4 +1,7 @@
 sudo: required
 dist: trusty
+notifications:
+  email:
+    - tj+travis_gna_elixir@a13.fr
 
 language: elixir
