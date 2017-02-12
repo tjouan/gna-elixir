@@ -2,11 +2,11 @@ defmodule Gna.RunControl do
   @file_name ".gna.rc"
 
   def repos do
-    rc_to_repos File.read! file_path
+    rc_to_repos File.read! file_path()
   end
 
   def save_repos repos do
-    File.write! file_path, repos_to_rc repos
+    File.write! file_path(), repos_to_rc repos
   end
 
   defp file_path do
