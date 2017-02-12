@@ -1,7 +1,36 @@
 sudo: required
 dist: trusty
+language: elixir
 notifications:
   email:
     - tj+travis_gna_elixir@a13.fr
 
-language: elixir
+elixir: 1.4
+cache:
+  directories:
+    - ${HOME}/.gem/travis
+    - ${HOME}/usr
+
+before_install:
+  - sudo apt-get --purge remove ruby\*
+  - rm -rf ~/.bash*
+  - unset gem GEM_HOME GEM_PATH RUBYOPT IRBRC
+  - export PATH=/bin:/usr/bin RB=$HOME/usr/bin/ruby
+  - test -x $RB || wget http://ftp.ruby-lang.org/pub/ruby/ruby-2.4-stable.tar.xz
+  - test -x $RB || tar xfJ ruby-*.tar.xz
+  - test -x $RB || cd ruby-*
+  - test -x $RB || ./configure --prefix=$HOME/usr --disable-install-doc --with-out-ext=tk
+  - test -x $RB || (make && make install)
+
+install:
+  - unset gem GEM_HOME GEM_PATH RUBYOPT IRBRC
+  - export GEM_HOME=~/.gem/travis GEM_PATH=~/.gem/travis
+  - export PATH=$GEM_HOME/bin:$HOME/.kiex/bin:$HOME/otp/18.0/bin:$HOME/usr/bin:/bin:/usr/bin
+  - kiex use 1.4
+  - cd $TRAVIS_BUILD_DIR
+  - gem install -g
+
+script:
+  - mix compile
+  - BAF_TEST_DEBUG=yes cucumber --profile quiet
+  - mix test
