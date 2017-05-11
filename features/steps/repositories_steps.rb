@@ -11,7 +11,7 @@ end
 Given /^the git repository in ([^ ]+) has current branch ([^ ]+)$/ do |path, branch|
   cd ?. do
     fail "cannot create branch for repository at `#{path}'" unless system(
-      "git -C #{path} checkout -b #{branch}"
+      "git -C #{path} checkout -b #{branch} > /dev/null"
     )
   end
 end
