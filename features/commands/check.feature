@@ -12,6 +12,11 @@ Feature: `check' command
     When I successfully run the program with argument check
     Then the output must be empty
 
+  Scenario: reports repositories whose remote origin does not match /\Agit:\w+/
+    Given the git repository in repositories/my_repo has no remote origin
+    When I successfully run the program with argument check
+    Then the output must contain "repositories/my_repo"
+
   Scenario: reports repositories whose current branch is not master
     Given the git repository in repositories/my_repo has current branch foo
     When I successfully run the program with argument check

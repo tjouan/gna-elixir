@@ -16,6 +16,14 @@ Given /^the git repository in ([^ ]+) has current branch ([^ ]+)$/ do |path, bra
   end
 end
 
+Given /^the git repository in ([^ ]+) has no remote origin$/ do |path|
+  cd ?. do
+    fail "cannot remove remote for repository at `#{path}'" unless system(
+      "git -C #{path} remote remove origin"
+    )
+  end
+end
+
 Given /^the git repository in ([^ ]+) has remote ([^ ]+)$/ do |path, remote|
   cd ?. do
     fail "cannot add remote for repository at `#{path}'" unless system(
